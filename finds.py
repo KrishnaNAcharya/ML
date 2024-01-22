@@ -4,31 +4,16 @@ print("\n The data from csv file is: \n")
 data=pd.read_csv("E:\\Downlaods\\findseg.csv")
 print(data)
 
-#making an array of all the attributes
-d = np.array(data)[:,:-1]
-print("\n The attributes are: \n ",d)
+hypothesis=['%' for _ in range(len(data.columns)-1)]
+positive_examples=data[data['Goes']=='Yes'].iloc[:,:-1].values.tolist()
 
-#seperating the target that has +ve and -ve examples
-target=np.array(data)[:,-1]
-print("\n The target is :\n ",target)
+for example in positive_examples:
+    for i in range(len(example)):
+        if hypothesis[i]!='%' and hypothesis[i]!=example[i]:
+            hypothesis[i]='?'
+        else:
+            hypothesis[i]=example[i]
+            
+print(hypothesis)
 
-#training function to implement find s algorithm
-def train(c,t):
-    for i,val in enumerate(t):
-        if val=="Yes":
-            specific_hypothesis=c[i].copy()
-            break
-    for i,val in enumerate(c):
-        if t[i]=="Yes":
-            for x in range(len(specific_hypothesis)):
-                if val[x]!=specific_hypothesis[x]:
-                    specific_hypothesis[x]='?'
-                else:
-                    pass
-            break   
-    return specific_hypothesis
-
-print("The final hypothesis is ",train(d,target))                
-           
-        
         
