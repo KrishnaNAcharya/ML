@@ -5,7 +5,7 @@ data=pd.read_csv("E:\\Downlaods\\findseg.csv")
 print(data)
 
 hypothesis=['%' for _ in range(len(data.columns)-1)]
-positive_examples=data[data['Goes']=='Yes'].iloc[:,:-1].values.tolist()
+positive_examples=data[data['enjoy_sport']=='Yes'].iloc[:,:-1].values.tolist()
 
 for example in positive_examples:
     for i in range(len(example)):
